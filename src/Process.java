@@ -1,8 +1,10 @@
 
-public class Process {
+public class Process //implements Comparable
+{
 
-	private int burst, id, priority, timestamp;
-
+	private int id, timestamp;
+	protected int burst;
+	
 	public void setID(int id)
 	{
 		this.id = id;
@@ -18,10 +20,6 @@ public class Process {
 		this.burst = burst;
 	}
 
-	public void setPriority(int priority)
-	{
-		this.priority = priority;
-	}
 
 	public int getID()
 	{
@@ -38,10 +36,18 @@ public class Process {
 		return burst;
 	}
 
-	public int getPriority()
-	{
-		return priority;
+	public int compareTo(Pnp compareProc) {
+		return 0;
 	}
+
+	public int compareTo(Sjnnp compareBurst)
+	{
+		return 0;
+	}
+
+
+
+	
 
 
 }
