@@ -24,5 +24,11 @@ public class Pnp extends Process implements Comparable<Pnp>
         //For Descending order do like this
         //return comparePriority-this.priority;
     }
+	
+	@Override 
+	public String toString()
+	{
+		return getID() + " " + getTimeStamp() + " " + getBurst() + " " + getPriority();
+	}
 
 }

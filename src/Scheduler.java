@@ -51,7 +51,7 @@ public class Scheduler {
 	private static void processFCFS(Scanner scanF, String algo)
 	{
 		int count= 0;
-		Queue<Fcfs> q = new LinkedList<Fcfs>();
+		ArrayList<Fcfs> q = new ArrayList<Fcfs>();
 		Fcfs p;
 		try 
 		{
@@ -155,18 +155,18 @@ public class Scheduler {
 			printSJNNP(q, count, algo);	
 	}
 	
-	private static void printFCFS(Queue<Fcfs> q, int c, String algo)
+	private static void printFCFS(ArrayList<Fcfs> q, int c, String algo)
 	{
-		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
-		while (!q.isEmpty())
+		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
+		for (Fcfs p: q)
 		{
-			System.out.println(q.peek().getID() + " " + q.peek().getTimeStamp() + " " + q.poll().getBurst());
+			System.out.println(p);
 		}
 	}
 	
 	private static void printPNP(LinkedList<Pnp> q, int c, String algo)
 	{
-		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
+		System.out.println("Algorithm: " + algo + "Total number of CPU requests: "+ c);
 		while (!q.isEmpty())
 		{
 			System.out.println(q.peek().getID() + " " + q.peek().getTimeStamp() + " " + q.peek().getBurst() + " " + q.poll().getPriority());
@@ -175,10 +175,11 @@ public class Scheduler {
 	
 	private static void printRR(ArrayList<R_r> q, int c, String algo)
 	{
+		//still the same print tech as fcfs, currently
 		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
 		for (R_r p: q)
 		{
-			System.out.println(p.getID() + " " + p.getTimeStamp() + " " + p.getBurst());
+			System.out.println(p);
 		}
 	}
 	
@@ -187,7 +188,7 @@ public class Scheduler {
 		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
 		for (Process p: q)
 		{
-			System.out.println(p.getID() + " " + p.getTimeStamp() + " " + p.getBurst());
+			System.out.println(p);
 		}
 	}
 		

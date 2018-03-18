@@ -44,6 +44,11 @@ public abstract class Process //implements Comparable
 		return 0;
 	}
 
+	@Override 
+	public String toString()
+	{
+		return getID() + " " + getTimeStamp() + " " + getBurst();
+	}
 
 
 	
