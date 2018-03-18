@@ -30,9 +30,9 @@ public class Scheduler {
 					break;
 				case "pnp": processPNP(scan, algo);
 					break;
-				case "sjnnp":System.out.println("sjnnp");
+				case "sjnnp":processSJNNP(scan, algo);
 					break;
-				case "rr": System.out.println("rr");
+				case "rr": processRR(scan, algo);
 					break;
 				default: System.out.println("Invalid data entered");
 			}
@@ -73,7 +73,7 @@ public class Scheduler {
 	}
 
 	
-	private static void processPNP(Scanner scanF, String algo)
+	/*private static void processPNP(Scanner scanF, String algo)
 	{
 		int priority;
 		int count = 0;
@@ -90,21 +90,29 @@ public class Scheduler {
 				p.setTimeStamp(scanF.nextInt());
 				p.setBurst(scanF.nextInt());
 				p.setPriority(scanF.nextInt());
-				q.add(p);
 				count++;
-				for (int x = 0; x < q.size(); x++)
+				if (q.size() == 0)
+					q.add(p);
+				else
 				{
-					priority = p.getPriority();
-					if(priority < q.get(x).getPriority())
-						q.add(x-1, p);
-					if(priority == q.get(x).getPriority())
+					for (int x = 0; x < q.size(); x++)
 					{
-						if (priority < q.get(x).getPriority())
+						priority = p.getPriority();
+						if(priority < q.get(x).getPriority())
 							q.add(x-1, p);
+						else if(priority == q.get(x).getPriority())
+						{
+							if (priority < q.get(x).getPriority())
+								q.add(x-1, p);
+						}
+						else if (priority > q.get(x).getPriority() && priority < q.get(x+1).getPriority())
+							if (p.getID() < q.get(x).getID())
+								q.add(x+1,p);
+							else;
+						else q.add(p);
 					}
-					if (priority > q.get(x).getPriority() && priority < q.get(x+1).getPriority())
-						q.add(p);
 				}
+				
 			}	
 			
 		}
@@ -114,17 +122,85 @@ public class Scheduler {
 			System.out.println(e.getMessage());
 		}
 		printPNP(q, count, algo);
-	}
-	
-	/*private static void processRR()
-	{
-		
-	}
-	
-	private static void processSJNNP()
-	{
-		
 	}*/
+	private static void processPNP(Scanner scanF, String algo)
+	{
+		int count= 0;
+		LinkedList<Process> q = new LinkedList<Process>();
+		Process p;
+		try 
+		{
+			while (scanF.hasNext())
+			{	p = new Process();
+				scanF.next();
+				p.setID(scanF.nextInt());
+				p.setTimeStamp(scanF.nextInt());
+				p.setBurst(scanF.nextInt());
+				p.setPriority(scanF.nextInt());
+				q.add(p);
+				count++;
+			}			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		//need to sort the goddamn queue in another method
+		printPNP(q, count, algo);
+	}
+	
+	//sortPNP(){}
+	
+	//sortSJNNP(){}
+	
+	private static void processRR(Scanner scanF, String algo)
+	{
+		int count= 0;
+		ArrayList<Process> q = new ArrayList<Process>();
+		Process p;
+		try 
+		{
+			while (scanF.hasNext())
+			{	p = new Process();
+				scanF.next();
+				p.setID(scanF.nextInt());
+				p.setTimeStamp(scanF.nextInt());
+				p.setBurst(scanF.nextInt());
+				q.add(p);
+				count++;
+			}			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		printRR(q, count, algo);
+	}
+	
+	private static void processSJNNP(Scanner scanF, String algo)
+	{
+		int count= 0;
+			LinkedList<Process> q = new LinkedList<Process>();
+			Process p;
+			try 
+			{
+				while (scanF.hasNext())
+				{	p = new Process();
+					scanF.next();
+					p.setID(scanF.nextInt());
+					p.setTimeStamp(scanF.nextInt());
+					p.setBurst(scanF.nextInt());
+					q.add(p);
+					count++;
+				}			
+			}
+			catch(Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+			//need to sort the goddamn queue in another method
+			printSJNNP(q, count, algo);	
+	}
 	
 	private static void printFCFS(Queue<Process> q, int c, String algo)
 	{
@@ -138,10 +214,28 @@ public class Scheduler {
 	private static void printPNP(LinkedList<Process> q, int c, String algo)
 	{
 		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
-		/*while (!q.isEmpty())
+		while (!q.isEmpty())
 		{
-			System.out.println(q.peek().getID() + " " + q.peek().getTimeStamp() + " " + q.poll().getBurst());
-		}*/
+			System.out.println(q.peek().getID() + " " + q.peek().getTimeStamp() + " " + q.peek().getBurst() + " " + q.poll().getPriority());
+		}
+	}
+	
+	private static void printRR(ArrayList<Process> q, int c, String algo)
+	{
+		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
+		for (Process p: q)
+		{
+			System.out.println(p.getID() + " " + p.getTimeStamp() + " " + p.getBurst());
+		}
+	}
+	
+	private static void printSJNNP(LinkedList<Process> q, int c, String algo)
+	{
+		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
+		for (Process p: q)
+		{
+			System.out.println(p.getID() + " " + p.getTimeStamp() + " " + p.getBurst());
+		}
 	}
 	
 }
