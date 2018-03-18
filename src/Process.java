@@ -1,9 +1,8 @@
 
-public class Process //implements Comparable
+public abstract class Process //implements Comparable
 {
 
-	private int id, timestamp;
-	protected int burst;
+	protected int id, timestamp, burst;
 	
 	public void setID(int id)
 	{

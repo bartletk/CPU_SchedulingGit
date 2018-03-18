@@ -44,19 +44,20 @@ public class Scheduler {
 		}
 		
 		
-		
+		//print methods()
 		
 	}
 
 	private static void processFCFS(Scanner scanF, String algo)
 	{
 		int count= 0;
-		Queue<Process> q = new LinkedList<Process>();
-		Process p;
+		Queue<Fcfs> q = new LinkedList<Fcfs>();
+		Fcfs p;
 		try 
 		{
 			while (scanF.hasNext())
-			{	p = new Process();
+			{	
+				p = new Fcfs();
 				scanF.next();
 				p.setID(scanF.nextInt());
 				p.setTimeStamp(scanF.nextInt());
@@ -107,12 +108,12 @@ public class Scheduler {
 	private static void processRR(Scanner scanF, String algo)
 	{
 		int count= 0;
-		ArrayList<Process> q = new ArrayList<Process>();
-		Process p;
+		ArrayList<R_r> q = new ArrayList<R_r>();
+		R_r p;
 		try 
 		{
 			while (scanF.hasNext())
-			{	p = new Process();
+			{	p = new R_r();
 				scanF.next();
 				p.setID(scanF.nextInt());
 				p.setTimeStamp(scanF.nextInt());
@@ -154,7 +155,7 @@ public class Scheduler {
 			printSJNNP(q, count, algo);	
 	}
 	
-	private static void printFCFS(Queue<Process> q, int c, String algo)
+	private static void printFCFS(Queue<Fcfs> q, int c, String algo)
 	{
 		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
 		while (!q.isEmpty())
@@ -172,10 +173,10 @@ public class Scheduler {
 		}
 	}
 	
-	private static void printRR(ArrayList<Process> q, int c, String algo)
+	private static void printRR(ArrayList<R_r> q, int c, String algo)
 	{
 		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
-		for (Process p: q)
+		for (R_r p: q)
 		{
 			System.out.println(p.getID() + " " + p.getTimeStamp() + " " + p.getBurst());
 		}
@@ -189,17 +190,5 @@ public class Scheduler {
 			System.out.println(p.getID() + " " + p.getTimeStamp() + " " + p.getBurst());
 		}
 	}
-	
-	private static LinkedList<Pnp> sortPnp(LinkedList<Pnp> q)
-	{
-		Collections.sort(q);
-		return q;
-	}
-	
-	private static LinkedList<Sjnnp> sortSjnnp(LinkedList<Sjnnp> q)
-	{
-		Collections.sort(q);
-		return q;
-	}
-	
+		
 }
