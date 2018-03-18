@@ -28,7 +28,7 @@ public class Scheduler {
 			{
 				case "fcfs": processFCFS(scan, algo);
 					break;
-				case "pnp": System.out.println("pnp");
+				case "pnp": processPNP(scan, algo);
 					break;
 				case "sjnnp":System.out.println("sjnnp");
 					break;
@@ -73,12 +73,50 @@ public class Scheduler {
 	}
 
 	
-	private static void processPNP()
+	private static void processPNP(Scanner scanF, String algo)
 	{
-		
+		int priority;
+		int count = 0;
+		LinkedList<Process> q = new LinkedList<Process>();
+		Process p;
+		try 
+		{
+			while (scanF.hasNext())
+			{	
+
+				p = new Process();
+				scanF.next();
+				p.setID(scanF.nextInt());
+				p.setTimeStamp(scanF.nextInt());
+				p.setBurst(scanF.nextInt());
+				p.setPriority(scanF.nextInt());
+				q.add(p);
+				count++;
+				for (int x = 0; x < q.size(); x++)
+				{
+					priority = p.getPriority();
+					if(priority < q.get(x).getPriority())
+						q.add(x-1, p);
+					if(priority == q.get(x).getPriority())
+					{
+						if (priority < q.get(x).getPriority())
+							q.add(x-1, p);
+					}
+					if (priority > q.get(x).getPriority() && priority < q.get(x+1).getPriority())
+						q.add(p);
+				}
+			}	
+			
+		}
+		catch(Exception e)
+		{
+			//if (!e.getMessage().equals("null")
+			System.out.println(e.getMessage());
+		}
+		printPNP(q, count, algo);
 	}
 	
-	private static void processRR()
+	/*private static void processRR()
 	{
 		
 	}
@@ -86,7 +124,7 @@ public class Scheduler {
 	private static void processSJNNP()
 	{
 		
-	}
+	}*/
 	
 	private static void printFCFS(Queue<Process> q, int c, String algo)
 	{
@@ -97,6 +135,13 @@ public class Scheduler {
 		}
 	}
 	
-	
+	private static void printPNP(LinkedList<Process> q, int c, String algo)
+	{
+		System.out.println("Algorithm: " + algo + ".\n" +c +" processes.");
+		/*while (!q.isEmpty())
+		{
+			System.out.println(q.peek().getID() + " " + q.peek().getTimeStamp() + " " + q.poll().getBurst());
+		}*/
+	}
 	
 }
