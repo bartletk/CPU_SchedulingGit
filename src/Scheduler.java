@@ -76,7 +76,7 @@ public class Scheduler {
 	private static void processPNP(Scanner scanF, String algo)
 	{
 		int count= 0;
-		LinkedList<Pnp> q = new LinkedList<Pnp>();
+		ArrayList<Pnp> q = new ArrayList<Pnp>();
 		Pnp p;
 		try 
 		{
@@ -157,20 +157,56 @@ public class Scheduler {
 	
 	private static void printFCFS(ArrayList<Fcfs> q, int c, String algo)
 	{
+		int clock = 0;
+		String breaker = "---------------------------------------------------------";
+		Fcfs p = new Fcfs();
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
-		for (Fcfs p: q)
-		{
-			System.out.println(p);
-		}
+		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
+		for (Fcfs m: q) System.out.println(m);
+		for (int i = 0; i < c; i++)
+			{
+				if (i == c)
+					{
+						System.out.print("nothing");
+					}
+				else
+					{
+						p = q.get(i);
+						clock += p.getID();
+						System.out.println("CPU Request serviced during this clock interval: " + p);
+						System.out.println(breaker);
+						System.out.println("Clock: "+ clock);
+						System.out.println(p+"\nPending CPU request(s): ");
+						for (int x = i+1; x < c; x++)
+							System.out.println(q.get(x));
+						System.out.print("\n");
+					}
+				
+				
+			}
 	}
 	
-	private static void printPNP(LinkedList<Pnp> q, int c, String algo)
+	private static void printPNP(ArrayList<Pnp> q, int c, String algo)
 	{
-		System.out.println("Algorithm: " + algo + "Total number of CPU requests: "+ c);
-		while (!q.isEmpty())
-		{
-			System.out.println(q.peek().getID() + " " + q.peek().getTimeStamp() + " " + q.peek().getBurst() + " " + q.poll().getPriority());
-		}
+		String breaker = "---------------------------------------------------------";
+		Pnp p = new Pnp();
+		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
+		System.out.println(breaker + "\nClock: " + p.getTimeStamp() + "\nPending CPU request(s): ");
+		for (Pnp m: q) System.out.println(m);
+		for (int i = 0; i < c-1; i++)
+			{
+				p = q.get(i);
+				
+				System.out.println(breaker);
+				//if (i==c-1)
+					//break;
+				System.out.println(p+"\nPending CPU request(s): ");
+				for (int x = i+1; x < c; x++)
+					System.out.println(q.get(x));
+				System.out.print("\n");
+				
+				
+			}
 	}
 	
 	private static void printRR(ArrayList<R_r> q, int c, String algo)
