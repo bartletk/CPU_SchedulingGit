@@ -119,7 +119,7 @@ public class Scheduler {
 		try
 		{
 			while (scan.hasNext())
-			{	
+			{
 				p = new R_r();
 				scan.next();
 				p.setID(scan.nextInt());
@@ -177,20 +177,19 @@ public class Scheduler {
 		for (int i = 0; i < c; i++)
 			{
 				p = q1.get(i);
-				clock += p.getID();
+				clock += p.getBurst();
 				System.out.println("CPU Request serviced during this clock interval: " + p);
-				System.out.println(breaker);
+				System.out.print(breaker);
 				if (q1.indexOf(p) != q1.size()-1)
 					{
-						System.out.println("Clock: "+ clock);
-						System.out.println(p+"\nPending CPU request(s): ");
+						System.out.println("\nClock: "+ clock);
+						System.out.println("Pending CPU request(s): ");
 					}
 				for (int x = i+1; x < c; x++)
 					System.out.println(q1.get(x));
 				System.out.print("\n");
-
 			}
-
+			printTATfcfs(q1);
 	}
 
 	private static void printPNP(ArrayList<Pnp> q1, ArrayList<Pnp> q2, int c, String algo)
@@ -205,46 +204,19 @@ public class Scheduler {
 		for (int i = 0; i < c; i++)
 			{
 				p = q1.get(i);
-				clock += p.getID();
+				clock += p.getBurst();
 				System.out.println("CPU Request serviced during this clock interval: " + p);
-				System.out.println(breaker);
+				System.out.print(breaker);
 				if (q1.indexOf(p) != q1.size()-1)
 					{
-						System.out.println("Clock: "+ clock);
+						System.out.println("\nClock: "+ clock);
 						System.out.println(p+"\nPending CPU request(s): ");
 					}
 				for (int x = i+1; x < c; x++)
 					System.out.println(q1.get(x));
 				System.out.print("\n");
-
 			}
-	}
-
-	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
-	{
-		int clock = 0;
-		String breaker = "---------------------------------------------------------";
-		R_r p = new R_r();
-		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
-		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
-		for (R_r m: q2) System.out.println(m);
-		System.out.print("\n");
-		for (int i = 0; i < c; i++)
-			{
-				p = q1.get(i);
-				clock += p.getID();
-				System.out.println("CPU Request serviced during this clock interval: " + p);
-				System.out.println(breaker);
-				if (q1.indexOf(p) != q1.size()-1)
-					{
-						System.out.println("Clock: "+ clock);
-						System.out.println(p+"\nPending CPU request(s): ");
-					}
-				for (int x = i+1; x < c; x++)
-					System.out.println(q1.get(x));
-				System.out.print("\n");
-
-			}
+			printTATpnp(q1);
 	}
 
 	private static void printSJNNP(ArrayList<Sjnnp> q1, ArrayList<Sjnnp> q2, int c, String algo)
@@ -259,12 +231,12 @@ public class Scheduler {
 		for (int i = 0; i < c; i++)
 			{
 				p = q1.get(i);
-				clock += p.getID();
+				clock += p.getBurst();
 				System.out.println("CPU Request serviced during this clock interval: " + p);
-				System.out.println(breaker);
+				System.out.print(breaker);
 				if (q1.indexOf(p) != q1.size()-1)
 					{
-						System.out.println("Clock: "+ clock);
+						System.out.println("\nClock: "+ clock);
 						System.out.println(p+"\nPending CPU request(s): ");
 					}
 				for (int x = i+1; x < c; x++)
@@ -272,6 +244,109 @@ public class Scheduler {
 				System.out.print("\n");
 
 			}
+			printTATsjnnp(q1);
 	}
+
+	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
+	{
+		int clock = 0;
+		String breaker = "---------------------------------------------------------";
+		R_r p = new R_r();
+		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
+		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
+		for (R_r m: q2) System.out.println(m);
+		System.out.print("\n");
+		for (int i = 0; i < c; i++)
+			{
+				p = q1.get(i);
+				clock += p.getBurst();
+				System.out.println("CPU Request serviced during this clock interval: " + p);
+				System.out.print(breaker);
+				if (q1.indexOf(p) != q1.size()-1)
+					{
+						System.out.println("\nClock: "+ clock);
+						System.out.println(p+"\nPending CPU request(s): ");
+					}
+				for (int x = i+1; x < c; x++)
+					System.out.println(q1.get(x));
+				System.out.print("\n");
+
+			}
+			printTATrr(q1);
+	}
+
+
+
+private static void printTATfcfs(ArrayList<Fcfs> q)
+	{
+		int exit = 0;
+		System.out.println("Turn-Around Time Computations\n");
+		double totalWT = 0;
+		double count=0;
+		for (Fcfs p: q)
+			{
+				exit+= p.getBurst();
+				totalWT += exit;
+				System.out.println("TAT(" + p.getID() + ") = " + exit);
+				count++;
+			}
+		System.out.println("\nAverage TAT = " + (totalWT/count));
+	}
+
+
+
+
+private static void printTATpnp(ArrayList<Pnp> q)
+	{
+		int exit = 0;
+		System.out.println("Turn-Around Time Computations\n");
+		double totalWT = 0;
+		double count=0;
+		for (Pnp p: q)
+			{
+				exit+= p.getBurst();
+				totalWT += exit;
+				System.out.println("TAT(" + p.getID() + ") = " + exit);
+				count++;
+			}
+		System.out.println("\nAverage TAT = " + (totalWT/count));
+	}
+
+private static void printTATsjnnp(ArrayList<Sjnnp> q)
+{
+	int exit = 0;
+	System.out.println("Turn-Around Time Computations\n");
+	double totalWT = 0;
+	double count=0;
+	for (Sjnnp p: q)
+		{
+			exit+= p.getBurst();
+			totalWT += exit;
+			System.out.println("TAT(" + p.getID() + ") = " + exit);
+			count++;
+		}
+	System.out.println("\nAverage TAT = " + (totalWT/count));
+}
+
+private static void printTATrr(ArrayList<R_r> q)
+	{
+		int exit = 0;
+		System.out.println("Turn-Around Time Computations\n");
+		double totalWT = 0;
+		double count=0;
+		for (R_r p: q)
+			{
+				exit+= p.getBurst();
+				totalWT += exit;
+				System.out.println("TAT(" + p.getID() + ") = " + exit);
+				count++;
+			}
+		System.out.println("\nAverage TAT = " + (totalWT/count));
+	}
+
+
+
+
+
 
 }
