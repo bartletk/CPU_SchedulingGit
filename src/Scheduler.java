@@ -4,14 +4,7 @@ import java.io.*;
 
 public class Scheduler {
 
-
-
-	//@SuppressWarnings("resource")
 	public static void main(String[] args) {
-
-
-//need  to add in a second array, for each method, that will hold the original
-//scan in
 
 
 		/*main needs to take in txt
@@ -19,10 +12,18 @@ public class Scheduler {
 		 * then determine which method to call, case statement?
 		 * 		check
 		 * calls relevant method
+		 			check
 		 * relevant method will read rest of txt
+		 	 		check
 		 * should read in individual elements
-		 * 		then method will call submethod to print out
+		 			check
+		 * then method will call submethod to print out
+		 * need  to add in a second array, for each method, that will hold the original scan in
+		 			check
+		 * need to calc Tat and WT
 		 */
+
+
 
 		try
 		{
@@ -35,7 +36,7 @@ public class Scheduler {
 					break;
 				case "pnp": processPNP(scan, algo);
 					break;
-				case "sjnnp":processSJNNP(scan, algo);
+				case "sjnnp": processSJNNP(scan, algo);
 					break;
 				case "rr": processRR(scan, algo);
 					break;
