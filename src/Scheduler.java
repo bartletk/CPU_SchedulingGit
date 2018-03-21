@@ -119,7 +119,8 @@ public class Scheduler {
 		try
 		{
 			while (scan.hasNext())
-			{	p = new R_r();
+			{	
+				p = new R_r();
 				scan.next();
 				p.setID(scan.nextInt());
 				p.setTimeStamp(scan.nextInt());
