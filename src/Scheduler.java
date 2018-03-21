@@ -177,7 +177,7 @@ public class Scheduler {
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 		for (Fcfs m: q2) System.out.println(m);
-		System.out.println("\n");
+		System.out.print("\n");
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
@@ -212,7 +212,7 @@ public class Scheduler {
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 		for (Pnp m: q2) System.out.println(m);
-		System.out.println("\n");
+		System.out.print("\n");
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
@@ -247,7 +247,7 @@ public class Scheduler {
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 		for (R_r m: q2) System.out.println(m);
-		System.out.println("\n");
+		System.out.print("\n");
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
@@ -282,7 +282,7 @@ public class Scheduler {
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 		for (Sjnnp m: q2) System.out.println(m);
-		//System.out.println("\n");
+		System.out.print("\n");
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
