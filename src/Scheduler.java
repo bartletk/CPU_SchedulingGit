@@ -56,7 +56,8 @@ public class Scheduler {
 	private static void processFCFS(Scanner scanF, String algo)
 	{
 		int count= 0;
-		ArrayList<Fcfs> q = new ArrayList<Fcfs>();
+		ArrayList<Fcfs> q1 = new ArrayList<Fcfs>();
+		ArrayList<Fcfs> q2 = new ArrayList<Fcfs>();
 		Fcfs p;
 		try
 		{
@@ -67,7 +68,8 @@ public class Scheduler {
 				p.setID(scanF.nextInt());
 				p.setTimeStamp(scanF.nextInt());
 				p.setBurst(scanF.nextInt());
-				q.add(p);
+				q1.add(p);
+				q2.add(p);
 				count++;
 			}
 		}
@@ -75,13 +77,14 @@ public class Scheduler {
 		{
 			System.out.println(e.getMessage());
 		}
-		printFCFS(q, count, algo);
+		printFCFS(q1, q2, count, algo);
 	}
 
 	private static void processPNP(Scanner scanF, String algo)
 	{
 		int count= 0;
-		ArrayList<Pnp> q = new ArrayList<Pnp>();
+		ArrayList<Pnp> q1 = new ArrayList<Pnp>();
+		ArrayList<Pnp> q2 = new ArrayList<Pnp>();
 		Pnp p;
 		try
 		{
@@ -93,7 +96,8 @@ public class Scheduler {
 				p.setTimeStamp(scanF.nextInt());
 				p.setBurst(scanF.nextInt());
 				p.setPriority(scanF.nextInt());
-				q.add(p);
+				q1.add(p);
+				q2.add(p);
 				count++;
 			}
 		}
@@ -102,8 +106,8 @@ public class Scheduler {
 			System.out.println(e.getMessage());
 		}
 		//need to sort the goddamn queue in another method
-		Collections.sort(q);;
-		printPNP(q, count, algo);
+		Collections.sort(q1);;
+		printPNP(q1, q2, count, algo);
 	}
 
 	//sortPNP(){}
@@ -113,7 +117,8 @@ public class Scheduler {
 	private static void processRR(Scanner scanF, String algo)
 	{
 		int count= 0;
-		ArrayList<R_r> q = new ArrayList<R_r>();
+		ArrayList<R_r> q1 = new ArrayList<R_r>();
+		ArrayList<R_r> q2 = new ArrayList<R_r>();
 		R_r p;
 		try
 		{
@@ -123,7 +128,8 @@ public class Scheduler {
 				p.setID(scanF.nextInt());
 				p.setTimeStamp(scanF.nextInt());
 				p.setBurst(scanF.nextInt());
-				q.add(p);
+				q1.add(p);
+				q2.add(p);
 				count++;
 			}
 		}
@@ -131,13 +137,14 @@ public class Scheduler {
 		{
 			System.out.println(e.getMessage());
 		}
-		printRR(q, count, algo);
+		printRR(q1, q2, count, algo);
 	}
 
 	private static void processSJNNP(Scanner scanF, String algo)
 	{
 		int count= 0;
-			LinkedList<Sjnnp> q = new LinkedList<Sjnnp>();
+			ArrayList<Sjnnp> q1 = new ArrayList<Sjnnp>();
+			ArrayList<Sjnnp> q2 = new ArrayList<Sjnnp>();
 			Sjnnp p;
 			try
 			{
@@ -147,7 +154,8 @@ public class Scheduler {
 					p.setID(scanF.nextInt());
 					p.setTimeStamp(scanF.nextInt());
 					p.setBurst(scanF.nextInt());
-					q.add(p);
+					q1.add(p);
+					q2.add(p);
 					count++;
 				}
 			}
@@ -156,18 +164,19 @@ public class Scheduler {
 				System.out.println(e.getMessage());
 			}
 			//need to sort the goddamn queue in another method
-			Collections.sort(q);
-			printSJNNP(q, count, algo);
+			Collections.sort(q1);
+			printSJNNP(q1, q2, count, algo);
 	}
 
-	private static void printFCFS(ArrayList<Fcfs> q, int c, String algo)
+	private static void printFCFS(ArrayList<Fcfs> q1, ArrayList<Fcfs> q2, int c, String algo)
 	{
 		int clock = 0;
 		String breaker = "---------------------------------------------------------";
 		Fcfs p = new Fcfs();
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
-		for (Fcfs m: q) System.out.println(m);
+		for (Fcfs m: q2) System.out.println(m);
+			System.out.println("\n");
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
@@ -176,17 +185,17 @@ public class Scheduler {
 					}
 				else
 					{
-						p = q.get(i);
+						p = q1.get(i);
 						clock += p.getID();
 						System.out.println("CPU Request serviced during this clock interval: " + p);
 						System.out.println(breaker);
-						if (q.indexOf(p) != q.size()-1)
+						if (q1.indexOf(p) != q1.size()-1)
 							{
 								System.out.println("Clock: "+ clock);
 								System.out.println(p+"\nPending CPU request(s): ");
 							}
 						for (int x = i+1; x < c; x++)
-							System.out.println(q.get(x));
+							System.out.println(q1.get(x));
 						System.out.print("\n");
 					}
 
@@ -194,14 +203,14 @@ public class Scheduler {
 			}
 	}
 
-	private static void printPNP(ArrayList<Pnp> q, int c, String algo)
+	private static void printPNP(ArrayList<Pnp> q1, ArrayList<Pnp> q2, int c, String algo)
 	{
 		int clock = 0;
 		String breaker = "---------------------------------------------------------";
 		Pnp p = new Pnp();
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
-		for (Pnp m: q) System.out.println(m);
+		for (Pnp m: q2) System.out.println(m);
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
@@ -210,17 +219,17 @@ public class Scheduler {
 					}
 				else
 					{
-						p = q.get(i);
+						p = q1.get(i);
 						clock += p.getID();
 						System.out.println("CPU Request serviced during this clock interval: " + p);
 						System.out.println(breaker);
-						if (q.indexOf(p) != q.size()-1)
+						if (q1.indexOf(p) != q1.size()-1)
 							{
 								System.out.println("Clock: "+ clock);
 								System.out.println(p+"\nPending CPU request(s): ");
 							}
 						for (int x = i+1; x < c; x++)
-							System.out.println(q.get(x));
+							System.out.println(q1.get(x));
 						System.out.print("\n");
 					}
 
@@ -228,14 +237,15 @@ public class Scheduler {
 			}
 	}
 
-	private static void printRR(ArrayList<R_r> q, int c, String algo)
+	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
 	{
 		int clock = 0;
 		String breaker = "---------------------------------------------------------";
 		R_r p = new R_r();
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
-		for (R_r m: q) System.out.println(m);
+		for (R_r m: q2) System.out.println(m);
+		System.out.println("\n");
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
@@ -244,17 +254,17 @@ public class Scheduler {
 					}
 				else
 					{
-						p = q.get(i);
+						p = q1.get(i);
 						clock += p.getID();
 						System.out.println("CPU Request serviced during this clock interval: " + p);
 						System.out.println(breaker);
-						if (q.indexOf(p) != q.size()-1)
+						if (q1.indexOf(p) != q1.size()-1)
 							{
 								System.out.println("Clock: "+ clock);
 								System.out.println(p+"\nPending CPU request(s): ");
 							}
 						for (int x = i+1; x < c; x++)
-							System.out.println(q.get(x));
+							System.out.println(q1.get(x));
 						System.out.print("\n");
 					}
 
@@ -262,14 +272,14 @@ public class Scheduler {
 			}
 	}
 
-	private static void printSJNNP(LinkedList<Sjnnp> q, int c, String algo)
+	private static void printSJNNP(ArrayList<Sjnnp> q1, ArrayList<Sjnnp> q2, int c, String algo)
 	{
 		int clock = 0;
 		String breaker = "---------------------------------------------------------";
 		Sjnnp p = new Sjnnp();
 		System.out.println("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 		System.out.println(breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
-		for (Sjnnp m: q) System.out.println(m);
+		for (Sjnnp m: q2) System.out.println(m);
 		for (int i = 0; i < c; i++)
 			{
 				if (i == c)
@@ -278,17 +288,17 @@ public class Scheduler {
 					}
 				else
 					{
-						p = q.get(i);
+						p = q1.get(i);
 						clock += p.getID();
 						System.out.println("CPU Request serviced during this clock interval: " + p);
 						System.out.println(breaker);
-						if (q.indexOf(p) != q.size()-1)
+						if (q1.indexOf(p) != q1.size()-1)
 							{
 								System.out.println("Clock: "+ clock);
 								System.out.println(p+"\nPending CPU request(s): ");
 							}
 						for (int x = i+1; x < c; x++)
-							System.out.println(q.get(x));
+							System.out.println(q1.get(x));
 						System.out.print("\n");
 					}
 
