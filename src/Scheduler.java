@@ -22,6 +22,7 @@ public class Scheduler {
 		 * need  to add in a second array, for each method, that will hold the original scan in
 		 			check
 		 * need to calc Tat and WT
+		 			check
 		 * need to print to files.
 		 */
 
@@ -51,7 +52,7 @@ public class Scheduler {
 			System.out.println(e.getMessage());
 		}
 
-	}
+	}//end main
 
 	private static void processFCFS(Scanner scan, String algo)
 	{
@@ -190,6 +191,7 @@ public class Scheduler {
 				System.out.print("\n");
 			}
 			printTATfcfs(q1);
+			printWTfcfs(q1);
 	}
 
 	private static void printPNP(ArrayList<Pnp> q1, ArrayList<Pnp> q2, int c, String algo)
@@ -217,6 +219,7 @@ public class Scheduler {
 				System.out.print("\n");
 			}
 			printTATpnp(q1);
+			printWTpnp(q1);
 	}
 
 	private static void printSJNNP(ArrayList<Sjnnp> q1, ArrayList<Sjnnp> q2, int c, String algo)
@@ -245,6 +248,7 @@ public class Scheduler {
 
 			}
 			printTATsjnnp(q1);
+			printWTsjnnp(q1);
 	}
 
 	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
@@ -273,6 +277,7 @@ public class Scheduler {
 
 			}
 			printTATrr(q1);
+			printWTrr(q1);
 	}
 
 
@@ -281,16 +286,17 @@ private static void printTATfcfs(ArrayList<Fcfs> q)
 	{
 		int exit = 0;
 		System.out.println("Turn-Around Time Computations\n");
-		double totalWT = 0;
+		double totalTAT = 0;
 		double count=0;
 		for (Fcfs p: q)
 			{
 				exit+= p.getBurst();
-				totalWT += exit;
+				totalTAT += exit;
 				System.out.println("TAT(" + p.getID() + ") = " + exit);
 				count++;
 			}
-		System.out.println("\nAverage TAT = " + (totalWT/count));
+		System.out.println("\nAverage TAT = " + (totalTAT/count));
+		System.out.print("---------------------------------------------------------\n");
 	}
 
 
@@ -300,53 +306,121 @@ private static void printTATpnp(ArrayList<Pnp> q)
 	{
 		int exit = 0;
 		System.out.println("Turn-Around Time Computations\n");
-		double totalWT = 0;
+		double totalTAT = 0;
 		double count=0;
 		for (Pnp p: q)
 			{
 				exit+= p.getBurst();
-				totalWT += exit;
+			  totalTAT += exit;
 				System.out.println("TAT(" + p.getID() + ") = " + exit);
 				count++;
 			}
-		System.out.println("\nAverage TAT = " + (totalWT/count));
+		System.out.println("\nAverage TAT = " + (totalTAT/count));
+		System.out.print("---------------------------------------------------------\n");
 	}
 
 private static void printTATsjnnp(ArrayList<Sjnnp> q)
 {
 	int exit = 0;
 	System.out.println("Turn-Around Time Computations\n");
-	double totalWT = 0;
+	double totalTAT = 0;
 	double count=0;
 	for (Sjnnp p: q)
 		{
 			exit+= p.getBurst();
-			totalWT += exit;
+			totalTAT += exit;
 			System.out.println("TAT(" + p.getID() + ") = " + exit);
 			count++;
 		}
-	System.out.println("\nAverage TAT = " + (totalWT/count));
+	System.out.println("\nAverage TAT = " + (totalTAT/count));
+	System.out.print("---------------------------------------------------------\n");
 }
 
 private static void printTATrr(ArrayList<R_r> q)
 	{
 		int exit = 0;
 		System.out.println("Turn-Around Time Computations\n");
-		double totalWT = 0;
+		double totalTAT = 0;
 		double count=0;
 		for (R_r p: q)
 			{
 				exit+= p.getBurst();
-				totalWT += exit;
+				totalTAT += exit;
 				System.out.println("TAT(" + p.getID() + ") = " + exit);
 				count++;
 			}
-		System.out.println("\nAverage TAT = " + (totalWT/count));
+		System.out.println("\nAverage TAT = " + (totalTAT/count));
+		System.out.print("---------------------------------------------------------\n");
 	}
 
 
 
+	private static void printWTfcfs(ArrayList<Fcfs> q)
+		{
+			int exit = 0;
+			System.out.println("Wait Time Computations\n");
+			double totalWT = 0;
+			double count = 0;
+			for (Fcfs p: q)
+				{
+					exit+= p.getBurst();
+					totalWT += (exit - p.getBurst());
+					System.out.println("WT(" + p.getID() + ") = " + (exit - p.getBurst()));
+					count++;
+				}
+			System.out.println("\nAverage WT = " + (totalWT/count));
+		}
+
+
+	private static void printWTpnp(ArrayList<Pnp> q)
+		{
+			int exit = 0;
+			System.out.println("Wait Time Computations\n");
+			double totalWT = 0;
+			double count = 0;
+			for (Pnp p: q)
+				{
+					exit+= p.getBurst();
+					totalWT += (exit - p.getBurst());
+					System.out.println("WT(" + p.getID() + ") = " + (exit - p.getBurst()));
+					count++;
+				}
+			System.out.println("\nAverage WT = " + (totalWT/count));
+		}
+
+
+	private static void printWTsjnnp(ArrayList<Sjnnp> q)
+		{
+			int exit = 0;
+			System.out.println("Wait Time Computations\n");
+			double totalWT = 0;
+			double count = 0;
+			for (Sjnnp p: q)
+				{
+					exit+= p.getBurst();
+					totalWT += (exit - p.getBurst());
+					System.out.println("WT(" + p.getID() + ") = " + (exit - p.getBurst()));
+					count++;
+				}
+			System.out.println("\nAverage WT = " + (totalWT/count));
+		}
+
+	private static void printWTrr(ArrayList<R_r> q)
+		{
+			int exit = 0;
+			System.out.println("Wait Time Computations\n");
+			double totalWT = 0;
+			double count = 0;
+			for (R_r p: q)
+				{
+					exit+= p.getBurst();
+					totalWT += (exit - p.getBurst());
+					System.out.println("WT(" + p.getID() + ") = " + (exit - p.getBurst()));
+					count++;
+				}
+				System.out.println("\nAverage WT = " + (totalWT/count));
+		}
 
 
 
-}
+}//end class
