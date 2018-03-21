@@ -1,8 +1,9 @@
 # CPU_SchedulingGit
-Last issue:
-Figure out Turnaround Time, and WT. Shouldn't be too difficult. 
 
 
-Tat = exit-enter ...therefor, should equal (clock - timestamp)
+Final requirement:
+Print to out_files.
 
-WT = Tat - burst ...also, shouldn't be hard.
+
+Optional feature(s):
+Process round_robin (R_r).
