@@ -199,7 +199,8 @@ public class Scheduler {
 			printWTfcfs(q1, writer);
 			
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			System.out.print("failure");
 		}
 		
@@ -238,7 +239,8 @@ public class Scheduler {
 			printWTpnp(q1, writer);
 			
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			System.out.print("failure");
 		}
 	}
@@ -275,7 +277,8 @@ public class Scheduler {
 			printWTsjnnp(q1, writer);
 			
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			System.out.print("failure");
 		}
 	}
@@ -312,7 +315,8 @@ public class Scheduler {
 			printWTrr(q1, writer);
 			
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			System.out.print("failure");
 		}
 	}
@@ -365,7 +369,10 @@ private static void printTATpnp(ArrayList<Pnp> q, BufferedWriter writer)
 			writer.append("\n\nAverage TAT = " + (totalTAT/count));
 			writer.append("\n---------------------------------------------------------");
 		}
-		catch(Exception e) {System.out.println(e.getMessage());}
+		catch(Exception e) 
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 
 private static void printTATsjnnp(ArrayList<Sjnnp> q, BufferedWriter writer)
@@ -386,7 +393,10 @@ private static void printTATsjnnp(ArrayList<Sjnnp> q, BufferedWriter writer)
 			writer.append("\n\nAverage TAT = " + (totalTAT/count));
 			writer.append("\n---------------------------------------------------------");
 		}
-		catch(Exception e) {System.out.println(e.getMessage());}
+		catch(Exception e) 
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 
 private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
