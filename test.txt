@@ -1,4 +1,4 @@
-CPU scheduling algorithm: rr
+CPU scheduling algorithm: fcfs
 Total number of CPU requests: 5
 ---------------------------------------------------------
 Clock: 0
