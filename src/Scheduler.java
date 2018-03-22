@@ -4,7 +4,8 @@ import java.io.*;
 
 public class Scheduler {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 
 		/*main needs to take in txt
