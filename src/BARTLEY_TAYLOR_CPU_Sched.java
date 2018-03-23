@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class Scheduler {
+public class BARTLEY_TAYLOR_CPU_Sched {
 
 	/*
 	 * Main method to read in a text file containing information related to n number of processes.
