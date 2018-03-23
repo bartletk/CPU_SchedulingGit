@@ -155,7 +155,6 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 		String breaker = "---------------------------------------------------------";
 		R_r p;
 		Queue<R_r> q1 = new LinkedList<R_r>();
-		//Iterator it = q1.iterator();
 		ArrayList<R_r> q2 = new ArrayList<R_r>();
 		try
 		{
@@ -180,15 +179,20 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 		}
 		
 		
-		System.out.print("\nCPU scheduling algorithm: " + algo + "\nTotal number of CPU requests: "+ count + "\n" + breaker);
+		System.out.print("CPU scheduling algorithm: " + algo + "\nTotal number of CPU requests: "+ count + "\n" + breaker);
 		System.out.print("\nClock: " + clock + "\nPending CPU request(s): \n");
 		for (R_r r: q1) System.out.println(r);
-		System.out.print("\n");
-		
 		while (!q1.isEmpty()) 
 		{
 			clock++;
-			System.out.print("\n\nCPU Request serviced during this clock interval: " +q1.peek() +"\n"+breaker + "\nClock: " + clock + "\nPending CPU request(s): \n");
+			System.out.print("\nCPU Request serviced during this clock interval: " +q1.peek() +"\n"+breaker+ "\n");
+			
+			
+			int testBurst = q1.peek().getBurst()-1;
+			int size = q1.size();
+			if (size >= 1 && testBurst > 0)
+			System.out.print("Clock: " + clock + "\nPending CPU request(s): \n");
+			
 			if (q1.peek().getBurst()-1 > 0)
 			{
 				p = new R_r();
@@ -202,10 +206,14 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 				q1.poll();
 			}
 			Iterator<R_r> it = q1.iterator();
+			if (!it.hasNext())
+				{
+					printWTrr();
+				}
 			while (it.hasNext())
 			{
 				R_r r = (R_r) it.next();
-				System.out.print(r);
+				System.out.print(r+"\n");
 			}
 		}
 		
@@ -400,9 +408,9 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 						writer.append("\n"+q1.get(x));
 					writer.newLine();;
 				}
-			printTATrr(q1, writer);
+	/*		printTATrr(q1, writer);
 			printWTrr(q1, writer);
-			
+		*/	
 		}
 		catch(Exception e) 
 		{
@@ -626,9 +634,10 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 	 * @param q contains sorted R_r objects.
 	 * @param writer writes to an output file.
 	 */
-	private static void printWTrr(ArrayList<R_r> q, BufferedWriter writer)
+	private static void printWTrr()//ArrayList<R_r> q, BufferedWriter writer)
 		{
-			try 
+			System.out.print("\nwt,time");
+			/*try 
 			{
 				int exit = 0;
 				writer.append("\nWait Time Computations\n");
@@ -648,7 +657,7 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 			catch(Exception e)
 			{
 				System.out.println(e.getMessage());
-			}
+			}*/
 		}
 
 
