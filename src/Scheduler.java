@@ -4,6 +4,10 @@ import java.io.*;
 
 public class Scheduler {
 
+	/*
+	 * Main method to read in a text file containing information related to n number of processes.
+	 * Main determines which subMethod to call, based on which algorithm is specified in the input file.
+	 */
 	public static void main(String[] args)
 	{
 
@@ -34,6 +38,12 @@ public class Scheduler {
 
 	}//end main
 
+	/*
+	 * Processes fcfs input file.
+	 * Then calls printFcfs() to print out the pertinent information.
+	 * @param scan a scanner containing the input file.
+	 * @param algo the algorithm.
+	 */
 	private static void processFCFS(Scanner scan, String algo)
 	{
 		int count= 0;
@@ -61,6 +71,12 @@ public class Scheduler {
 		printFCFS(q1, q2, count, algo);
 	}
 
+	/*
+	 * Processes pnp input file.
+	 * Then calls printPnp() to print out the pertinent information.
+	 * @param scan a scanner containing the input file.
+	 * @param algo the algorithm.
+	 */
 	private static void processPNP(Scanner scan, String algo)
 	{
 		int count= 0;
@@ -90,7 +106,12 @@ public class Scheduler {
 		printPNP(q1, q2, count, algo);
 	}
 
-
+	/*
+	 * Processes sjnnp input file.
+	 * Then calls printSjnnp() to print out the pertinent information.
+	 * @param scan a scanner containing the input file.
+	 * @param algo the algorithm.
+	 */
 	private static void processSJNNP(Scanner scan, String algo)
 	{
 		int count= 0;
@@ -119,6 +140,12 @@ public class Scheduler {
 		printSJNNP(q1, q2, count, algo);
 	}
 
+	/*
+	 * Processes rr input file.
+	 * Then calls printRR() to print out the pertinent information.
+	 * @param scan a scanner containing the input file.
+	 * @param algo the algorithm.
+	 */
 	private static void processRR(Scanner scan, String algo)
 	{
 		int count= 0;
@@ -147,6 +174,16 @@ public class Scheduler {
 	}
 
 	
+	/*
+	 * Prints out the results of processing which occurred in processFcfs() method.
+	 * Contains neither turn-around time nor wait time.
+	 * Calls printTATfcfs() to process and print turn-around time.
+	 * Calls printWTfcfs() to process and print wait time.
+	 * @param q1 contains ordered processes.
+	 * @param q2 contains processes in original order.
+	 * @param c the count of processes in question.
+	 * @param algo the algorithm being used.
+	 */
 	private static void printFCFS(ArrayList<Fcfs> q1, ArrayList<Fcfs> q2, int c, String algo)
 	{
 		String outText = "fcfs_out.txt";
@@ -184,10 +221,18 @@ public class Scheduler {
 		{
 			System.out.print(e.getMessage());
 		}
-		
-
 	}
 
+	/*
+	 * Prints out the results of processing which occurred in processPnp() method.
+	 * Contains neither turn-around time nor wait time.
+	 * Calls printTATpnp() to process and print turn-around time.
+	 * Calls printWTpnp() to process and print wait time.
+	 * @param q1 contains ordered processes.
+	 * @param q2 contains processes in original order.
+	 * @param c the count of processes in question.
+	 * @param algo the algorithm being used.
+	 */
 	private static void printPNP(ArrayList<Pnp> q1, ArrayList<Pnp> q2, int c, String algo)
 	{
 		String outText = "pnp_out.txt";
@@ -227,6 +272,16 @@ public class Scheduler {
 		}
 	}
 
+	/*
+	 * Prints out the results of processing which occurred in processSjnnp() method.
+	 * Contains neither turn-around time nor wait time.
+	 * Calls printTATsjnnp() to process and print turn-around time.
+	 * Calls printWTsjnnp() to process and print wait time.
+	 * @param q1 contains ordered processes.
+	 * @param q2 contains processes in original order.
+	 * @param c the count of processes in question.
+	 * @param algo the algorithm being used.
+	 */
 	private static void printSJNNP(ArrayList<Sjnnp> q1, ArrayList<Sjnnp> q2, int c, String algo)
 	{
 		String outText = "sjnnp_out.txt";
@@ -266,6 +321,16 @@ public class Scheduler {
 		}
 	}
 
+	/*
+	 * Prints out the results of processing which occurred in processRR() method.
+	 * Contains neither turn-around time nor wait time.
+	 * Calls printTATrr() to process and print turn-around time.
+	 * Calls printWTrr() to process and print wait time.
+	 * @param q1 contains ordered processes.
+	 * @param q2 contains processes in original order.
+	 * @param c the count of processes in question.
+	 * @param algo the algorithm being used.
+	 */
 	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
 	{
 		String outText = "rr_out.txt";
@@ -306,109 +371,130 @@ public class Scheduler {
 	}
 
 
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted Fcfs objects.
+	 * @param writer writes to an output file.
+	 */
+	private static void printTATfcfs(ArrayList<Fcfs> q, BufferedWriter writer)
+		{
+			try 
+			{
+				int exit = 0;
+				writer.append("Turn-Around Time Computations\n");
+				double totalTAT = 0;
+				double count=0;
+				for (Fcfs p: q)
+					{
+						exit+= p.getBurst();
+						totalTAT += exit;
+						writer.append("\nTAT(" + p.getID() + ") = " + exit);
+						count++;
+					}
+				writer.append("\n\nAverage TAT = " + (totalTAT/count));
+				writer.append("\n---------------------------------------------------------");
+				
+			}
+			catch(Exception e) 
+			{
+				System.out.println(e.getMessage());
+			}
+		}
 
-private static void printTATfcfs(ArrayList<Fcfs> q, BufferedWriter writer)
+
+
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted Pnp objects.
+	 * @param writer writes to an output file.
+	 */
+	private static void printTATpnp(ArrayList<Pnp> q, BufferedWriter writer)
+		{
+			try 
+			{
+				int exit = 0;
+				writer.append("Turn-Around Time Computations\n");
+				double totalTAT = 0;
+				double count=0;
+				for (Pnp p: q)
+					{
+						exit+= p.getBurst();
+						totalTAT += exit;
+						writer.append("\nTAT(" + p.getID() + ") = " + exit);
+						count++;
+					}
+				writer.append("\n\nAverage TAT = " + (totalTAT/count));
+				writer.append("\n---------------------------------------------------------");
+			}
+			catch(Exception e) 
+			{
+				System.out.println(e.getMessage());
+			}
+		}
+
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted Sjnnp objects.
+	 * @param writer writes to an output file.
+	 */
+	private static void printTATsjnnp(ArrayList<Sjnnp> q, BufferedWriter writer)
 	{
-		try 
-		{
-			int exit = 0;
-			writer.append("Turn-Around Time Computations\n");
-			double totalTAT = 0;
-			double count=0;
-			for (Fcfs p: q)
-				{
-					exit+= p.getBurst();
-					totalTAT += exit;
-					writer.append("\nTAT(" + p.getID() + ") = " + exit);
-					count++;
-				}
-			writer.append("\n\nAverage TAT = " + (totalTAT/count));
-			writer.append("\n---------------------------------------------------------");
-			
+			try 
+			{
+				int exit = 0;
+				writer.append("Turn-Around Time Computations\n");
+				double totalTAT = 0;
+				double count=0;
+				for (Sjnnp p: q)
+					{
+						exit+= p.getBurst();
+						totalTAT += exit;
+						writer.append("\nTAT(" + p.getID() + ") = " + exit);
+						count++;
+					}
+				writer.append("\n\nAverage TAT = " + (totalTAT/count));
+				writer.append("\n---------------------------------------------------------");
+			}
+			catch(Exception e) 
+			{
+				System.out.println(e.getMessage());
+			}
 		}
-		catch(Exception e) 
+
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted R_r objects.
+	 * @param writer writes to an ouput file.
+	 */
+	private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 		{
-			System.out.println(e.getMessage());
+			try 
+			{
+				int exit = 0;
+				writer.append("Turn-Around Time Computations\n");
+				double totalTAT = 0;
+				double count=0;
+				for (R_r p: q)
+					{
+						exit+= p.getBurst();
+						totalTAT += exit;
+						writer.append("\nTAT(" + p.getID() + ") = " + exit);
+						count++;
+					}
+				writer.append("\n\nAverage TAT = " + (totalTAT/count));
+				writer.append("\n---------------------------------------------------------");
+			}
+			catch(Exception e) 
+			{
+				System.out.println(e.getMessage());
+			}
 		}
-	}
 
-
-
-
-private static void printTATpnp(ArrayList<Pnp> q, BufferedWriter writer)
-	{
-		try 
-		{
-			int exit = 0;
-			writer.append("Turn-Around Time Computations\n");
-			double totalTAT = 0;
-			double count=0;
-			for (Pnp p: q)
-				{
-					exit+= p.getBurst();
-					totalTAT += exit;
-					writer.append("\nTAT(" + p.getID() + ") = " + exit);
-					count++;
-				}
-			writer.append("\n\nAverage TAT = " + (totalTAT/count));
-			writer.append("\n---------------------------------------------------------");
-		}
-		catch(Exception e) 
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-
-private static void printTATsjnnp(ArrayList<Sjnnp> q, BufferedWriter writer)
-{
-		try 
-		{
-			int exit = 0;
-			writer.append("Turn-Around Time Computations\n");
-			double totalTAT = 0;
-			double count=0;
-			for (Sjnnp p: q)
-				{
-					exit+= p.getBurst();
-					totalTAT += exit;
-					writer.append("\nTAT(" + p.getID() + ") = " + exit);
-					count++;
-				}
-			writer.append("\n\nAverage TAT = " + (totalTAT/count));
-			writer.append("\n---------------------------------------------------------");
-		}
-		catch(Exception e) 
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-
-private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
-	{
-		try 
-		{
-			int exit = 0;
-			writer.append("Turn-Around Time Computations\n");
-			double totalTAT = 0;
-			double count=0;
-			for (R_r p: q)
-				{
-					exit+= p.getBurst();
-					totalTAT += exit;
-					writer.append("\nTAT(" + p.getID() + ") = " + exit);
-					count++;
-				}
-			writer.append("\n\nAverage TAT = " + (totalTAT/count));
-			writer.append("\n---------------------------------------------------------");
-		}
-		catch(Exception e) 
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-
-
-
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted Fcfs objects.
+	 * @param writer writes to an output file.
+	 */
 	private static void printWTfcfs(ArrayList<Fcfs> q, BufferedWriter writer)
 		{
 			try 
@@ -424,7 +510,7 @@ private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 						writer.write("\nWT(" + p.getID() + ") = " + (exit - p.getBurst()));
 						count++;
 					}
-				writer.write("\n\nAverage WT = " + (totalWT/count));
+				writer.write("\n\nAverage WT = " + (totalWT/count)+ "\n");
 				writer.close();
 				System.out.println("fcfs complete");
 			}
@@ -435,7 +521,11 @@ private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 		
 		}
 
-
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted Pnp objects.
+	 * @param writer writes to an output file.
+	 */
 	private static void printWTpnp(ArrayList<Pnp> q, BufferedWriter writer)
 		{
 			try 
@@ -451,7 +541,7 @@ private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 						writer.write("\nWT(" + p.getID() + ") = " + (exit - p.getBurst()));
 						count++;
 					}
-				writer.write("\n\nAverage WT = " + (totalWT/count));
+				writer.write("\n\nAverage WT = " + (totalWT/count) + "\n");
 				writer.close();
 				System.out.println("pnp complete");
 			}
@@ -461,7 +551,11 @@ private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 			}
 		}
 
-
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted Sjnnp objects.
+	 * @param writer writes to an output file.
+	 */
 	private static void printWTsjnnp(ArrayList<Sjnnp> q, BufferedWriter writer)
 		{
 			try 
@@ -477,7 +571,7 @@ private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 						writer.write("\nWT(" + p.getID() + ") = " + (exit - p.getBurst()));
 						count++;
 					}
-				writer.write("\n\nAverage WT = " + (totalWT/count));
+				writer.write("\n\nAverage WT = " + (totalWT/count)+"\n");
 				writer.close();
 				System.out.println("sjnnp complete");
 			}
@@ -487,6 +581,11 @@ private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 			}
 		}
 
+	/*
+	 * Processes and prints turn-around time.
+	 * @param q contains sorted R_r objects.
+	 * @param writer writes to an output file.
+	 */
 	private static void printWTrr(ArrayList<R_r> q, BufferedWriter writer)
 		{
 			try 
@@ -502,7 +601,7 @@ private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
 						writer.write("\nWT(" + p.getID() + ") = " + (exit - p.getBurst()));
 						count++;
 					}
-				writer.write("\n\nAverage WT = " + (totalWT/count));
+				writer.write("\n\nAverage WT = " + (totalWT/count) + "\n");
 				writer.close();
 				System.out.println("rr complete");
 			}
