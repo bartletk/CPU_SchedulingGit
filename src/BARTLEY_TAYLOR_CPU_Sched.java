@@ -156,6 +156,7 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 		R_r p;
 		Queue<R_r> q1 = new LinkedList<R_r>();
 		ArrayList<R_r> q2 = new ArrayList<R_r>();
+		ArrayList<R_r> finished = new ArrayList<R_r>();
 		try
 		{
 			while (scan.hasNext())
