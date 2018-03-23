@@ -148,10 +148,15 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 	 */
 	private static void processRR(Scanner scan, String algo)
 	{
-		int count= 0;
-		ArrayList<R_r> q1 = new ArrayList<R_r>();
-		ArrayList<R_r> q2 = new ArrayList<R_r>();
+		int count = 0;
+		int clock = 0;
+		int burst = 0;
+		//int totalBurst = 0;
+		String breaker = "---------------------------------------------------------";
 		R_r p;
+		Queue<R_r> q1 = new LinkedList<R_r>();
+		//Iterator it = q1.iterator();
+		ArrayList<R_r> q2 = new ArrayList<R_r>();
 		try
 		{
 			while (scan.hasNext())
@@ -160,9 +165,12 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 				scan.next();
 				p.setID(scan.nextInt());
 				p.setTimeStamp(scan.nextInt());
-				p.setBurst(scan.nextInt());
+				burst = scan.nextInt();
+				p.setBurst(burst);
 				q1.add(p);
 				q2.add(p);
+			
+			//	totalBurst += burst;
 				count++;
 			}
 		}
@@ -170,7 +178,39 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 		{
 			System.out.println(e.getMessage());
 		}
-		printRR(q1, q2, count, algo);
+		
+		
+		System.out.print("\nCPU scheduling algorithm: " + algo + "\nTotal number of CPU requests: "+ count + "\n" + breaker);
+		System.out.print("\nClock: " + clock + "\nPending CPU request(s): \n");
+		for (R_r r: q1) System.out.println(r);
+		System.out.print("\n");
+		
+		while (!q1.isEmpty()) 
+		{
+			clock++;
+			System.out.print("\n\nCPU Request serviced during this clock interval: " +q1.peek() +"\n"+breaker + "\nClock: " + clock + "\nPending CPU request(s): \n");
+			if (q1.peek().getBurst()-1 > 0)
+			{
+				p = new R_r();
+				p.setID(q1.peek().getID());
+				p.setTimeStamp(q1.peek().getTimeStamp());
+				p.setBurst(q1.poll().getBurst()-1);
+				q1.add(p);		
+			}
+			else
+			{
+				q1.poll();
+			}
+			Iterator<R_r> it = q1.iterator();
+			while (it.hasNext())
+			{
+				R_r r = (R_r) it.next();
+				System.out.print(r);
+			}
+		}
+		
+		
+		
 	}
 
 	
