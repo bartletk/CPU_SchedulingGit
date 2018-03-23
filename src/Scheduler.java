@@ -8,28 +8,6 @@ public class Scheduler {
 	{
 
 
-		/*main needs to take in txt
-		 * 				check
-		 * then determine which method to call, case statement?
-		 * 			check
-		 * calls relevant method
-		 * 			check
-		 * relevant method will read rest of txt
-		 * 			check
-		 * should read in individual elements
-		 * 			check
-		 * then method will call submethod to print out
-		 * 			check
-		 * need  to add in a second array, for each method, that will hold the original scan in
-		 * 			check
-		 * need to calc Tat and WT
-		 * 			check
-		 * need to print to files.
-		 * 			check
-		 */
-
-
-
 		try
 		{
 			Scanner scan = new Scanner(new File("in.txt")); 
@@ -113,6 +91,34 @@ public class Scheduler {
 	}
 
 
+	private static void processSJNNP(Scanner scan, String algo)
+	{
+		int count= 0;
+		ArrayList<Sjnnp> q1 = new ArrayList<Sjnnp>();
+		ArrayList<Sjnnp> q2 = new ArrayList<Sjnnp>();
+		Sjnnp p;
+		try
+		{
+			while (scan.hasNext())
+			{
+				p = new Sjnnp();
+				scan.next();
+				p.setID(scan.nextInt());
+				p.setTimeStamp(scan.nextInt());
+				p.setBurst(scan.nextInt());
+				q1.add(p);
+				q2.add(p);
+				count++;
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		Collections.sort(q1);
+		printSJNNP(q1, q2, count, algo);
+	}
+
 	private static void processRR(Scanner scan, String algo)
 	{
 		int count= 0;
@@ -140,43 +146,17 @@ public class Scheduler {
 		printRR(q1, q2, count, algo);
 	}
 
-	private static void processSJNNP(Scanner scan, String algo)
-	{
-		int count= 0;
-			ArrayList<Sjnnp> q1 = new ArrayList<Sjnnp>();
-			ArrayList<Sjnnp> q2 = new ArrayList<Sjnnp>();
-			Sjnnp p;
-			try
-			{
-				while (scan.hasNext())
-				{
-					p = new Sjnnp();
-					scan.next();
-					p.setID(scan.nextInt());
-					p.setTimeStamp(scan.nextInt());
-					p.setBurst(scan.nextInt());
-					q1.add(p);
-					q2.add(p);
-					count++;
-				}
-			}
-			catch(Exception e)
-			{
-				System.out.println(e.getMessage());
-			}
-			Collections.sort(q1);
-			printSJNNP(q1, q2, count, algo);
-	}
-
+	
 	private static void printFCFS(ArrayList<Fcfs> q1, ArrayList<Fcfs> q2, int c, String algo)
 	{
+		String outText = "fcfs_out.txt";
 		try
 		{
-			BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outText));
 			int clock = 0;
 			String breaker = "---------------------------------------------------------";
 			Fcfs p = new Fcfs();
-			writer.write("CPU scheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
+			writer.write("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 			writer.append("\n"+breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 			for (Fcfs m: q2) writer.write("\n"+m);
 			writer.newLine();
@@ -202,7 +182,7 @@ public class Scheduler {
 		}
 		catch(Exception e) 
 		{
-			System.out.print("failure");
+			System.out.print(e.getMessage());
 		}
 		
 
@@ -210,13 +190,14 @@ public class Scheduler {
 
 	private static void printPNP(ArrayList<Pnp> q1, ArrayList<Pnp> q2, int c, String algo)
 	{
+		String outText = "pnp_out.txt";
 		try
 		{
-			BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outText));
 			int clock = 0;
 			String breaker = "---------------------------------------------------------";
 			Pnp p = new Pnp();
-			writer.write("CPU scheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
+			writer.write("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 			writer.append("\n"+breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 			for (Pnp m: q2) writer.write("\n"+m);
 			writer.newLine();
@@ -242,19 +223,20 @@ public class Scheduler {
 		}
 		catch(Exception e) 
 		{
-			System.out.print("failure");
+			System.out.print(e.getMessage());
 		}
 	}
 
 	private static void printSJNNP(ArrayList<Sjnnp> q1, ArrayList<Sjnnp> q2, int c, String algo)
 	{
+		String outText = "sjnnp_out.txt";
 		try
 		{
-			BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outText));
 			int clock = 0;
 			String breaker = "---------------------------------------------------------";
 			Sjnnp p = new Sjnnp();
-			writer.write("CPU scheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
+			writer.write("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 			writer.append("\n"+breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 			for (Sjnnp m: q2) writer.write("\n"+m);
 			writer.newLine();
@@ -280,19 +262,20 @@ public class Scheduler {
 		}
 		catch(Exception e) 
 		{
-			System.out.print("failure");
+			System.out.print(e.getMessage());
 		}
 	}
 
 	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
 	{
+		String outText = "rr_out.txt";
 		try
 		{
-			BufferedWriter writer = new BufferedWriter(new FileWriter("test.txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outText));
 			int clock = 0;
 			String breaker = "---------------------------------------------------------";
 			R_r p = new R_r();
-			writer.write("CPU scheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
+			writer.write("CPU sheduling algorithm: " + algo + "\nTotal number of CPU requests: "+c);
 			writer.append("\n"+breaker + "\nClock: " +clock + "\nPending CPU request(s): ");
 			for (R_r m: q2) writer.write("\n"+m);
 			writer.newLine();
@@ -318,7 +301,7 @@ public class Scheduler {
 		}
 		catch(Exception e) 
 		{
-			System.out.print("failure");
+			System.out.print(e.getMessage());
 		}
 	}
 
