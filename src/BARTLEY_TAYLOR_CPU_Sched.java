@@ -25,9 +25,9 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 					break;
 				case "sjnnp": processSJNNP(scan, algo);
 					break;
-				case "rr": processRR(scan, algo);
-					break;
-				default: System.out.println("Invalid data entered");
+		//		case "rr": processRR(scan, algo);
+		//			break;
+				default: System.out.println("Invalid algorithm.");
 			}
 
 		}
@@ -102,7 +102,7 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 		{
 			System.out.println(e.getMessage());
 		}
-		Collections.sort(q1);;
+		Collections.sort(q1);
 		printPNP(q1, q2, count, algo);
 	}
 
@@ -146,7 +146,7 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 	 * @param scan a scanner containing the input file.
 	 * @param algo the algorithm.
 	 */
-	private static void processRR(Scanner scan, String algo)
+	/*private static void processRR(Scanner scan, String algo)
 	{
 		int count = 0;
 		int clock = 0;
@@ -156,7 +156,7 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 		R_r p;
 		Queue<R_r> q1 = new LinkedList<R_r>();
 		ArrayList<R_r> q2 = new ArrayList<R_r>();
-		ArrayList<R_r> finished = new ArrayList<R_r>();
+		ArrayList<R_r> q3 = new ArrayList<R_r>();
 		try
 		{
 			while (scan.hasNext())
@@ -188,10 +188,7 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 			clock++;
 			System.out.print("\nCPU Request serviced during this clock interval: " +q1.peek() +"\n"+breaker+ "\n");
 			
-			
-			int testBurst = q1.peek().getBurst()-1;
-			int size = q1.size();
-			if (size >= 1 && testBurst > 0)
+			if (q1.size() >= 1 && q1.peek().getBurst()-1 > 0)
 			System.out.print("Clock: " + clock + "\nPending CPU request(s): \n");
 			
 			if (q1.peek().getBurst()-1 > 0)
@@ -204,11 +201,16 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 			}
 			else
 			{
+				p = q1.poll();
 				q1.poll();
+				p.setTat(clock);
+				q3.add(p);
 			}
 			Iterator<R_r> it = q1.iterator();
 			if (!it.hasNext())
 				{
+					Collections.sort(q2);
+					printTATrr(q2);
 					printWTrr();
 				}
 			while (it.hasNext())
@@ -216,11 +218,9 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 				R_r r = (R_r) it.next();
 				System.out.print(r+"\n");
 			}
-		}
+		}	
 		
-		
-		
-	}
+	}*/
 
 	
 	/*
@@ -380,7 +380,7 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 	 * @param c the count of processes in question.
 	 * @param algo the algorithm being used.
 	 */
-	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
+/*	private static void printRR(ArrayList<R_r> q1, ArrayList<R_r> q2, int c, String algo)
 	{
 		String outText = "rr_out.txt";
 		try
@@ -409,15 +409,12 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 						writer.append("\n"+q1.get(x));
 					writer.newLine();;
 				}
-	/*		printTATrr(q1, writer);
-			printWTrr(q1, writer);
-		*/	
 		}
 		catch(Exception e) 
 		{
 			System.out.print(e.getMessage());
 		}
-	}
+	}*/
 
 
 	/*
@@ -515,29 +512,34 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 	 * @param q contains sorted R_r objects.
 	 * @param writer writes to an ouput file.
 	 */
-	private static void printTATrr(ArrayList<R_r> q, BufferedWriter writer)
+/*	private static void printTATrr(ArrayList<R_r> q)//, BufferedWriter writer)
 		{
+			for (R_r p: q) {
+				p.setBurst(p.getBurst()+1);
+			}0
+		}
+
 			try 
 			{
 				int exit = 0;
-				writer.append("Turn-Around Time Computations\n");
+				System.out.print("Turn-Around Time Computations\n");
 				double totalTAT = 0;
 				double count=0;
 				for (R_r p: q)
 					{
 						exit+= p.getBurst();
 						totalTAT += exit;
-						writer.append("\nTAT(" + p.getID() + ") = " + exit);
+						System.out.print("\nTAT(" + p.getID() + ") = " + p.getTat());
 						count++;
 					}
-				writer.append("\n\nAverage TAT = " + (totalTAT/count));
-				writer.append("\n---------------------------------------------------------");
+				System.out.print("\n\nAverage TAT = " + (totalTAT/count));
+				System.out.print("\n---------------------------------------------------------");
 			}
 			catch(Exception e) 
 			{
 				System.out.println(e.getMessage());
 			}
-		}
+		}*/
 
 	/*
 	 * Processes and prints turn-around time.
@@ -635,10 +637,10 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 	 * @param q contains sorted R_r objects.
 	 * @param writer writes to an output file.
 	 */
-	private static void printWTrr()//ArrayList<R_r> q, BufferedWriter writer)
+	/*private static void printWTrr()//ArrayList<R_r> q, BufferedWriter writer)
 		{
 			System.out.print("\nwt,time");
-			/*try 
+			try 
 			{
 				int exit = 0;
 				writer.append("\nWait Time Computations\n");
@@ -658,8 +660,8 @@ public class BARTLEY_TAYLOR_CPU_Sched {
 			catch(Exception e)
 			{
 				System.out.println(e.getMessage());
-			}*/
-		}
+			}
+		}*/
 
 
 
