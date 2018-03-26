@@ -7,13 +7,17 @@
  * 		PNP		- Priority, Non-Preemptive
  * 		RR		- Round-Robin
  * 
- * 		@author Taylor Bartley
- * 		@date	2018-03-25
+ * @author Taylor Bartley
+ * @date	2018-03-25
  * 
  * 
- * 		Disclaimer, was not able to achieve accurate round-robin calculations.
- * 		All methods related to round-robin are at the bottom. Any feedback on 
- * 		improvements is appreciated.
+ * Disclaimer, was not able to achieve accurate round-robin calculations.
+ * All methods related to round-robin are at the bottom. Any feedback on 
+ * improvements is appreciated.
+ * 
+ *
+ * Also, the following observation was discovered: in the example
+ * output file, the word "sheduling" is used, instead of  * "scheduling." My output files reflect this spelling.
  */
 
 
